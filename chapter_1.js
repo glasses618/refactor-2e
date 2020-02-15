@@ -10,9 +10,7 @@ function statement(invoice, plays) {
 
   for (const perf of invoice.performances) {
     // 加入 volume credit
-    volumeCredits += Math.max(perf.audience - 30, 0)
-    // 每十名喜劇觀眾可獲得額外分數
-    if (playFor(perf).type === 'comedy') volumeCredits += Math.floor(perf.audience / 5)
+    volumeCredits += volumeCreditsFor(perf)
 
     // 印出這筆訂單
     result += `${playFor(perf).name}: ${format(amountFor(perf) / 100)} (${perf.audience} seats)\n`
@@ -23,6 +21,15 @@ function statement(invoice, plays) {
   result += `You earned ${volumeCredits} credits\n`
 
   return result
+
+  function volumeCreditsFor(perf) {
+    let volumeCredits = 0
+
+    volumeCredits += Math.max(perf.audience - 30, 0)
+    if (playFor(perf).type === 'comedy') volumeCredits += Math.floor(perf.audience / 5)
+
+    return volumeCredits
+  }
 
   function playFor(aPerformance) {
     return plays[aPerformance.playID]
