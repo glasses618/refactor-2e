@@ -1,4 +1,4 @@
-const { statement } = require('./statement.js')
+const { statement, htmlStatement } = require('./statement.js')
 
 const plays = {
   hamlet: { name: 'Hamlet', type: 'tragedy' },
@@ -38,3 +38,18 @@ describe('statement', () => {
   })
 })
 
+describe('html statement', () => {
+  test('basic test', () => {
+    const expectedResult = [
+      '<h1>Statement for BigCo</h1>',
+      '<table>',
+      '<tr><th>play</th><th>seats</th><th>cost</th></tr><tr><td>Hamlet</td><td>55</td><td>$650.00</td></tr>',
+      '<tr><td>As You Like It</td><td>35</td><td>$580.00</td></tr>',
+      '<tr><td>Othello</td><td>40</td><td>$500.00</td></tr>',
+      '</table>',
+      '<p>Amount owed is <em>$1,730.00</em></p>',
+      '<p>You earned <em>47</em> credits</p>\n',
+    ].join("\n")
+    expect(htmlStatement(invoice, plays)).toBe(expectedResult)
+  })
+})
