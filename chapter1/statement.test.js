@@ -1,4 +1,4 @@
-const { statement } = require('./chapter_1')
+const { statement } = require('./statement.js')
 
 const plays = {
   hamlet: { name: 'Hamlet', type: 'tragedy' },
